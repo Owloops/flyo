@@ -1,0 +1,7 @@
+# see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
+use_default_settings: true
+server:
+  limiter: true
+  image_proxy: true
+ui:
+  static_use_hash: true

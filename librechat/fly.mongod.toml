@@ -1,0 +1,12 @@
+app = "librechat-pg-mongod"
+primary_region = "cdg"
+
+[build]
+  image = "mongo:latest"
+
+[mounts]
+  source = "mongod_data"
+  destination = "/data/db"
+
+[processes]
+  app = "mongod --noauth --ipv6"

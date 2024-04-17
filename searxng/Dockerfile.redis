@@ -1,0 +1,5 @@
+FROM redis:alpine
+
+COPY start-redis-server.sh /usr/bin/start-redis-server.sh
+
+CMD ["/usr/bin/start-redis-server.sh"]

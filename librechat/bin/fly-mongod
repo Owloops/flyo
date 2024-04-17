@@ -1,0 +1,2 @@
+#!/bin/sh
+FLY_APP=librechat-pg-mongod exec "fly" -c fly.mongod.toml "$@"
