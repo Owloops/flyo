@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for open-webui-pg on 2024-05-04T20:22:09+03:00
+# fly.toml app configuration file generated for open-webui-pg on 2024-05-05T22:14:11+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -26,6 +26,6 @@ primary_region = 'ord'
   processes = ['app']
 
 [[vm]]
-  size = 'performance-8x'
-  memory = '16gb'
-  gpu_kind = 'l40s'
+  size = 'performance-2x'
+  memory = '8gb'
+  gpu_kind = 'a10'
