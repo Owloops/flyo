@@ -14,6 +14,12 @@ You'll need a [Fly.io](https://fly.io/) account, and the [Flyctl CLI](https://fl
 fly launch
 ```
 
+### Secrets
+
+```bash
+fly secrets set OPENAI_API_KEY=<sk-proj-***>
+```
+
 ### Operating your instance
 
 Useful resources for operating and debugging a running instance include `fly logs`, `fly scale show`, `fly ssh console`, the Metrics section of `fly dashboard`.

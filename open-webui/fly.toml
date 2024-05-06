@@ -11,6 +11,9 @@ primary_region = 'ord'
 [env]
   OLLAMA_BASE_URL = 'http://localhost:11434'
   OLLAMA_MODELS = '/app/backend/data/models'
+  DATA_DIR = '/app/backend/data'
+  DEFAULT_USER_ROLE = 'user'
+  ENABLE_SIGNUP = 'false'
 
 [[mounts]]
   source = 'data'
