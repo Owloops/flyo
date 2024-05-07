@@ -22,6 +22,6 @@ primary_region = 'ord'
   processes = ['app']
 
 [[vm]]
-  size = 'performance-8x'
-  memory = '16gb'
-  gpu_kind = 'l40s'
+  size = 'performance-2x'
+  memory = '8gb'
+  gpu_kind = 'a10'
