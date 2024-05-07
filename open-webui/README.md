@@ -1,6 +1,6 @@
-# open-webui on Fly.io
+# Open WebUI on Fly.io
 
-Guide for setting up open-webui instance on Fly.io.
+Guide for setting up Open WebUI instance on Fly.io.
 
 Based on [fly-apps/ollama-open-webui](https://github.com/fly-apps/ollama-open-webui)
 
@@ -24,7 +24,7 @@ fly secrets set OPENAI_API_KEY=<sk-proj-***>
 
 Useful resources for operating and debugging a running instance include `fly logs`, `fly scale show`, `fly ssh console`, the Metrics section of `fly dashboard`.
 
-### Upgrading open-webui
+### Upgrading Open WebUI
 
 To upgrade to a new version of open-webui, re-deploy the app.
 

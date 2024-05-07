@@ -1,4 +1,4 @@
-name: Deploy open-webui
+name: Deploy Open WebUI
 on:
   workflow_dispatch:
   push:
