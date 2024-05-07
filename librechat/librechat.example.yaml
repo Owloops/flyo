@@ -22,10 +22,11 @@ endpoints:
   custom:
       - name: "Ollama"
         apiKey: "ollama"
-        baseURL: "http://librechat-pg-ollama.internal:11434/v1/chat/completions" 
+        baseURL: "http://ollama-pg.flycast/v1/chat/completions" 
         models:
           default: [
             "llama3",
+            "phi3"
             ]
           fetch: false
         titleConvo: true
