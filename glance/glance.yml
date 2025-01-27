@@ -1,0 +1,157 @@
+pages:
+  - name: Home
+    columns:
+      - size: small
+        widgets:
+          - type: calendar
+
+          - type: rss
+            limit: 10
+            collapse-after: 3
+            cache: 3h
+            feeds:
+              - url: https://ciechanow.ski/atom.xml
+              - url: https://ncase.me/feed.xml
+              - url: https://pudding.cool/rss.xml
+              - url: https://www.mayerowitz.io/feed
+              - url: https://predr.ag/atom.xml
+              - url: https://brr.fyi/feed.xml
+              - url: https://andreasjhkarlsson.github.io/feed.xml
+              - url: https://www.thirtythreeforty.net/posts/index.xml
+
+      - size: full
+        widgets:
+          - type: hacker-news
+
+          - type: videos
+            channels:
+              - UCj1VqrHhDte54oLgPG4xpuQ # Staff Made Here
+              - UCD80T1s2Za4K682CQDGwEKQ # Wristwatch Revival
+              - UCLGp7H4XuzA9TLJ0L4PUx8w # Teddy Baldassarre
+              - UCYmdliVZaaxsqE6jiCzVnhA # Worn and Wound
+              - UCGYYNGmyhZ_kwBF_lqqXdAQ # Tifo Football
+              - UCvBqzzvUBLCs8Y7Axb-jZew # Sixty Symbols
+              - UCRhV1rWIpm_pU19bBm_2RXw # Sean Carroll
+              - UCoxcjq-8xIDTYp3uz647V5A # Numberphile
+              - UCoQ8B21RIncI9NWLr2d2Y_w # Nana Janashia
+              - UCSOpcUkE-is7u7c4AkLgqTw # MrMobile
+              - UCFtVwG0NFd6gT3TXfMCU7oA # Jose Briones
+              - UCmEbe0XH51CI09gm_9Fcn8Q # Glass Reflection
+              - UCCCmapQ-VnHWNZlK1Jdnalg # Gattsu
+              - UCsBjURrPoezykLs9EqgamOA # Fireship
+              - UCnIfca4LPFVn8-FjpPVc1ow # Fedora Project
+              - UCYO_jab_esuFRV4b17AJtAw # 3Blue1Brown
+              - UCqh8w-GY6v0vgwIn_iWt87A # Andrew Marc David
+              - UCW7pWfl6hVvwz3K6b-Q8T0g # Rogue Rat
+              - UCK0wWfg2_bqWOQFFNWp58mw # Kitfox Games
+              - UCaifrB5IrvGNPJmPeVOcqBA # Kruggsmash
+              - UCApLcBfbC-I38zMzgxsobKg # Big Simple
+              - UC2TPQt5goAjgXE-GRF6WfnQ # Beautemps
+              - UCPq2ETz4aAGo2Z-8JisDPIA # ESL Counter-Strike
+          - type: group
+            widgets:
+            - type: reddit
+              subreddit: selfhosted
+
+            - type: reddit
+              subreddit: space
+
+            - type: reddit
+              subreddit: travel
+
+            - type: reddit
+              subreddit: unixporn
+
+            - type: reddit
+              subreddit: Watches
+
+            - type: reddit
+              subreddit: Sakartvelo
+
+            - type: reddit
+              subreddit: roguelikes
+            
+            - type: reddit
+              subreddit: PrivacyGuides
+            
+            - type: reddit
+              subreddit: opensource
+
+            - type: reddit
+              subreddit: networking
+
+            - type: reddit
+              subreddit: linux
+
+            - type: reddit
+              subreddit: istanbul
+
+            - type: reddit
+              subreddit: Fedora
+
+            - type: reddit
+              subreddit: digitalminimalism
+
+            - type: reddit
+              subreddit: devops
+
+            - type: reddit
+              subreddit: commandline
+
+            - type: reddit
+              subreddit: cavesofqud
+
+            - type: reddit
+              subreddit: Bogleheads
+
+            - type: reddit
+              subreddit: Bitcoin
+
+            - type: reddit
+              subreddit: AsahiLinux
+
+      - size: small
+        widgets:
+          - type: weather
+            location: Tbilisi, Georgia
+
+          - type: markets
+            title: Indices
+            markets:
+              - symbol: SPY
+                name: S&P 500
+              - symbol: DX-Y.NYB
+                name: Dollar Index
+
+          - type: markets
+            title: Crypto
+            markets:
+              - symbol: BTC-USD
+                name: Bitcoin
+              - symbol: ETH-USD
+                name: Ethereum
+
+          - type: markets
+            title: Stocks
+            sort-by: absolute-change
+            markets:
+              - symbol: NVDA
+                name: NVIDIA
+              - symbol: AAPL
+                name: Apple
+              - symbol: MSFT
+                name: Microsoft
+              - symbol: GOOGL
+                name: Google
+              - symbol: AMD
+                name: AMD
+              - symbol: RDDT
+                name: Reddit
+              - symbol: AMZN
+                name: Amazon
+              - symbol: TSLA
+                name: Tesla
+              - symbol: INTC
+                name: Intel
+              - symbol: META
+                name: Meta
