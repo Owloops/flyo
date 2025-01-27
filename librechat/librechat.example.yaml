@@ -12,7 +12,7 @@ endpoints:
   custom:
       - name: "Ollama"
         apiKey: "ollama"
-        baseURL: "http://ollama-pg.internal/v1/" 
+        baseURL: "http://ollama-pg.flycast/v1/" 
         models:
           default: [
             "deepseek-r1:14b",
