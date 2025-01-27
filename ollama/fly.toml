@@ -12,7 +12,7 @@ primary_region = 'ord'
 [[mounts]]
   source = 'ollama'
   destination = '/root/.ollama'
-  initial_size = '30gb'
+  initial_size = '64gb'
 
 [http_service]
   internal_port = 11434

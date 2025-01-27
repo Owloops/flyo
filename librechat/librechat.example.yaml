@@ -1,13 +1,5 @@
-# For more information, see the Configuration Guide:
-# https://docs.librechat.ai/install/configuration/custom_config.html
-
-# Configuration version (required)
-version: 1.0.6
-
-# Cache settings: Set to true to enable caching
+version: 1.1.4
 cache: true
-
-# Custom interface configuration
 interface:
   privacyPolicy:
     externalUrl: 'https://librechat.ai/privacy-policy'
@@ -16,17 +8,15 @@ interface:
   termsOfService:
     externalUrl: 'https://librechat.ai/tos'
     openNewTab: true
-
-# Definition of custom endpoints
 endpoints:
   custom:
       - name: "Ollama"
         apiKey: "ollama"
-        baseURL: "http://ollama-pg.flycast/v1/chat/completions" 
+        baseURL: "http://ollama-pg.internal/v1/" 
         models:
           default: [
-            "llama3",
-            "phi3"
+            "deepseek-r1:14b",
+            "phi4:14b"
             ]
           fetch: false
         titleConvo: true
@@ -37,8 +27,11 @@ endpoints:
         modelDisplayLabel: "Ollama"
         addParams:
           "stop": [
-            "<|start_header_id|>",
-            "<|end_header_id|>",
-            "<|eot_id|>",
-            "<|reserved_special_token"
+            "<|im_start|>",
+            "<|im_end|>",
+            "<|im_sep|>",
+            "<|begin_of_sentence|>",
+            "<|end_of_sentence|>",
+            "<|User|>",
+            "<|Assistant|>",
           ]
