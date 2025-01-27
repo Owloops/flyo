@@ -7,18 +7,17 @@ app = 'open-webui-pg'
 primary_region = 'ord'
 
 [build]
+  image = "ghcr.io/open-webui/open-webui:main"
 
 [env]
-  OLLAMA_BASE_URL = 'http://localhost:11434'
-  OLLAMA_MODELS = '/app/backend/data/models'
-  DATA_DIR = '/app/backend/data'
-  DEFAULT_USER_ROLE = 'user'
+  DEFAULT_MODEL = 'llama3.1:8b'
+  OLLAMA_BASE_URL = 'http://ollama-pg.internal:11434'
   ENABLE_SIGNUP = 'false'
 
 [[mounts]]
   source = 'data'
-  destination = '/app/backend/data'
-  initial_size = '20gb'
+  destination = './data'
+  initial_size = '10gb'
 
 [http_service]
   internal_port = 8080
@@ -29,6 +28,6 @@ primary_region = 'ord'
   processes = ['app']
 
 [[vm]]
-  size = 'performance-2x'
-  memory = '8gb'
-  gpu_kind = 'a10'
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
