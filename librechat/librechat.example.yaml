@@ -21,7 +21,7 @@ endpoints:
             ]
           fetch: false
         titleConvo: true
-        titleModel: "phi4"
+        titleModel: "current_model"
         summarize: false
         summaryModel: "current_model"
         forcePrompt: false
