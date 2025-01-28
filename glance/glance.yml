@@ -149,6 +149,7 @@ pages:
                 name: Vanguard FTSE All-World UCITS ETF
               - symbol: VAGU.L
                 name: Vanguard Global Aggregate Bond UCITS ETF
+
           - type: markets
             title: Crypto
             markets:
@@ -160,19 +161,7 @@ pages:
                 name: Litecoin
               - symbol: XMR-USD
                 name: Monero
-          - type: markets
-            title: Stocks
-            sort-by: absolute-change
-            markets:
-              - symbol: NVDA
-                name: NVIDIA
-              - symbol: AAPL
-                name: Apple
-              - symbol: MSFT
-                name: Microsoft
-              - symbol: GOOGL
-                name: Google
-              - symbol: AMZN
-                name: Amazon
-              - symbol: META
-                name: Meta
+              - symbol: LINK-USD
+                name: Chainlink
+              - symbol: MINA-USD
+                name: Mina
