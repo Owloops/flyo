@@ -49,54 +49,12 @@ pages:
             search-engine: https://searxng-pg.fly.dev/search?q={QUERY}
             new-tab: true
           - type: group
+            define: &shared-properties
+                  type: reddit
+                  comments-url-template: https://redlib-pg.fly.dev/{POST-PATH}
             widgets:
               - type: hacker-news
               - type: lobsters
-          - type: group
-            widgets:
-              - type: videos
-                title: Tech
-                channels:
-                  - UCoQ8B21RIncI9NWLr2d2Y_w # Nana Janashia
-                  - UCSOpcUkE-is7u7c4AkLgqTw # MrMobile
-                  - UCFtVwG0NFd6gT3TXfMCU7oA # Jose Briones
-                  - UCsBjURrPoezykLs9EqgamOA # Fireship
-                  - UCnIfca4LPFVn8-FjpPVc1ow # Fedora Project
-                  - UCqh8w-GY6v0vgwIn_iWt87A # Andrew Marc David
-                  - UCFtVwG0NFd6gT3TXfMCU7oA # Jose Briones
-
-              - type: videos
-                title: Education
-                channels:
-                  - UCYO_jab_esuFRV4b17AJtAw # 3Blue1Brown
-                  - UCoxcjq-8xIDTYp3uz647V5A # Numberphile
-                  - UCvBqzzvUBLCs8Y7Axb-jZew # Sixty Symbols
-                  - UCRhV1rWIpm_pU19bBm_2RXw # Sean Carroll
-                  - UCj1VqrHhDte54oLgPG4xpuQ # Staff Made Here
-
-              - type: videos
-                title: Gaming
-                channels:
-                  - UCW7pWfl6hVvwz3K6b-Q8T0g # Rogue Rat
-                  - UCK0wWfg2_bqWOQFFNWp58mw # Kitfox Games
-                  - UCaifrB5IrvGNPJmPeVOcqBA # Kruggsmash
-                  - UCApLcBfbC-I38zMzgxsobKg # Big Simple
-                  - UC2TPQt5goAjgXE-GRF6WfnQ # Beautemps
-                  - UCPq2ETz4aAGo2Z-8JisDPIA # ESL Counter-Strike
-
-              - type: videos
-                title: Other
-                channels:
-                  - UCD80T1s2Za4K682CQDGwEKQ # Wristwatch Revival
-                  - UCLGp7H4XuzA9TLJ0L4PUx8w # Teddy Baldassarre
-                  - UCYmdliVZaaxsqE6jiCzVnhA # Worn and Wound
-                  - UCGYYNGmyhZ_kwBF_lqqXdAQ # Tifo Football
-                  - UCmEbe0XH51CI09gm_9Fcn8Q # Glass Reflection
-          - type: group
-            define: &shared-properties
-              type: reddit
-              comments-url-template: https://redlib-pg.fly.dev/{POST-PATH}
-            widgets:
               - subreddit: selfhosted
                 <<: *shared-properties
               - subreddit: linux
@@ -137,6 +95,46 @@ pages:
                 <<: *shared-properties
               - subreddit: PrivacyGuides
                 <<: *shared-properties
+          - type: group
+            widgets:
+              - type: videos
+                title: Tech
+                channels:
+                  - UCoQ8B21RIncI9NWLr2d2Y_w # Nana Janashia
+                  - UCSOpcUkE-is7u7c4AkLgqTw # MrMobile
+                  - UCFtVwG0NFd6gT3TXfMCU7oA # Jose Briones
+                  - UCsBjURrPoezykLs9EqgamOA # Fireship
+                  - UCnIfca4LPFVn8-FjpPVc1ow # Fedora Project
+                  - UCqh8w-GY6v0vgwIn_iWt87A # Andrew Marc David
+                  - UCFtVwG0NFd6gT3TXfMCU7oA # Jose Briones
+
+              - type: videos
+                title: Education
+                channels:
+                  - UCYO_jab_esuFRV4b17AJtAw # 3Blue1Brown
+                  - UCoxcjq-8xIDTYp3uz647V5A # Numberphile
+                  - UCvBqzzvUBLCs8Y7Axb-jZew # Sixty Symbols
+                  - UCRhV1rWIpm_pU19bBm_2RXw # Sean Carroll
+                  - UCj1VqrHhDte54oLgPG4xpuQ # Staff Made Here
+
+              - type: videos
+                title: Gaming
+                channels:
+                  - UCW7pWfl6hVvwz3K6b-Q8T0g # Rogue Rat
+                  - UCK0wWfg2_bqWOQFFNWp58mw # Kitfox Games
+                  - UCaifrB5IrvGNPJmPeVOcqBA # Kruggsmash
+                  - UCApLcBfbC-I38zMzgxsobKg # Big Simple
+                  - UC2TPQt5goAjgXE-GRF6WfnQ # Beautemps
+                  - UCPq2ETz4aAGo2Z-8JisDPIA # ESL Counter-Strike
+
+              - type: videos
+                title: Other
+                channels:
+                  - UCD80T1s2Za4K682CQDGwEKQ # Wristwatch Revival
+                  - UCLGp7H4XuzA9TLJ0L4PUx8w # Teddy Baldassarre
+                  - UCYmdliVZaaxsqE6jiCzVnhA # Worn and Wound
+                  - UCGYYNGmyhZ_kwBF_lqqXdAQ # Tifo Football
+                  - UCmEbe0XH51CI09gm_9Fcn8Q # Glass Reflection
 
       - size: small
         widgets:
@@ -147,6 +145,10 @@ pages:
                 name: S&P 500
               - symbol: DX-Y.NYB
                 name: Dollar Index
+              - symbol: VWRA.L
+                name: Vanguard FTSE All-World UCITS ETF
+              - symbol: VAGU.L
+                name: Vanguard Global Aggregate Bond UCITS ETF
           - type: markets
             title: Crypto
             markets:
@@ -154,6 +156,10 @@ pages:
                 name: Bitcoin
               - symbol: ETH-USD
                 name: Ethereum
+              - symbol: LTC-USD
+                name: Litecoin
+              - symbol: XMR-USD
+                name: Monero
           - type: markets
             title: Stocks
             sort-by: absolute-change
