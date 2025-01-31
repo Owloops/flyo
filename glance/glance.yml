@@ -61,8 +61,6 @@ pages:
                 <<: *shared-properties
               - subreddit: Fedora
                 <<: *shared-properties
-              - subreddit: opensource
-                <<: *shared-properties
               - subreddit: networking
                 <<: *shared-properties
               - subreddit: devops
@@ -94,6 +92,8 @@ pages:
               - subreddit: unixporn
                 <<: *shared-properties
               - subreddit: PrivacyGuides
+                <<: *shared-properties
+              - subreddit: Punkt
                 <<: *shared-properties
           - type: group
             widgets:
