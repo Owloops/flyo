@@ -1,12 +1,12 @@
 app = "glance-pg"
-primary_region = "ord"
+primary_region = "otp"
 
 [build]
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = "stop"
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
@@ -16,7 +16,7 @@ primary_region = "ord"
     soft_limit = 200
     hard_limit = 250
 
-[vm]
+[[vm]]
   memory = "1024mb"
   cpu_kind = "shared"
   cpus = 1

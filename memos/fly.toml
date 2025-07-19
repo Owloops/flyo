@@ -1,5 +1,5 @@
 app = "memos-pg"
-primary_region = "cdg"
+primary_region = "otp"
 
 [build]
   image = "neosmemo/memos:stable"
@@ -7,7 +7,7 @@ primary_region = "cdg"
 [http_service]
   internal_port = 5230
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = "stop"
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
@@ -16,7 +16,7 @@ primary_region = "cdg"
     soft_limit = 200
     hard_limit = 250
 
-[vm]
+[[vm]]
   memory = '256mb'
   cpu_kind = 'shared'
   cpus = 1

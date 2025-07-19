@@ -1,5 +1,5 @@
 app = "librechat-pg-mongod"
-primary_region = "cdg"
+primary_region = "otp"
 
 [build]
   image = "mongo:latest"
