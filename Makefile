@@ -49,8 +49,20 @@ deploy: create ## Deploy app with services
 	@cd apps/$(app) && \
 		echo "Deploying main application..." && \
 		fly deploy --app $(app)$(if $(environment),-$(environment),) --primary-region $(region) && \
-		if [ -f "fly.mongod.toml" ]; then echo "Deploying MongoDB service..." && fly deploy -c fly.mongod.toml --app $(app)$(if $(environment),-$(environment),)-mongo --primary-region $(region); fi && \
-			if [ -f "fly.redis.toml" ]; then echo "Deploying Redis service..." && fly deploy -c fly.redis.toml --app $(app)$(if $(environment),-$(environment),)-redis --primary-region $(region); fi
+		if [ -f "fly.mongod.toml" ]; then \
+			echo "Deploying MongoDB service..." && \
+			if ! fly status --app $(app)$(if $(environment),-$(environment),)-mongo >/dev/null 2>&1; then \
+				fly apps create $(app)$(if $(environment),-$(environment),)-mongo; \
+			fi && \
+			fly deploy -c fly.mongod.toml --app $(app)$(if $(environment),-$(environment),)-mongo --primary-region $(region); \
+		fi && \
+		if [ -f "fly.redis.toml" ]; then \
+			echo "Deploying Redis service..." && \
+			if ! fly status --app $(app)$(if $(environment),-$(environment),)-redis >/dev/null 2>&1; then \
+				fly apps create $(app)$(if $(environment),-$(environment),)-redis; \
+			fi && \
+			fly deploy -c fly.redis.toml --app $(app)$(if $(environment),-$(environment),)-redis --primary-region $(region); \
+		fi
 	@echo "Deployment complete for $(app)$(if $(environment),-$(environment),)"
 
 status: ## Show app status
