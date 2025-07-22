@@ -53,7 +53,7 @@ doctor: ## Check required tools and auth
 
 create: ## Create new app on Fly.io
 	$(call validate_app)
-	@cd apps/$(app) && $(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)
+	@$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),) APP_DIR=apps/$(app)
 
 deploy: create ## Deploy app with services
 	$(call validate_app)
@@ -94,7 +94,8 @@ matrix: ## List apps as JSON
 	fi
 
 _create_app:
-	@if fly status --app $(APP_NAME) >/dev/null 2>&1; then \
+	@cd $(APP_DIR) && \
+	if fly status --app $(APP_NAME) >/dev/null 2>&1; then \
 		echo "App $(APP_NAME) already exists, skipping creation..."; \
 	else \
 		echo "Creating Fly app $(APP_NAME)..." && \
@@ -103,16 +104,17 @@ _create_app:
 	fi
 
 _deploy_services:
-	@if [ -f "fly.mongod.toml" ]; then \
+	@cd apps/$(app) && \
+	if [ -f "fly.mongod.toml" ]; then \
 		echo "Deploying MongoDB service..." && \
-		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-mongo && \
+		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-mongo APP_DIR=apps/$(app) && \
 		fly deploy -c fly.mongod.toml \
 		--app $(app)$(if $(environment),-$(environment),)-mongo \
 		--primary-region $(region); \
-	fi
-	@if [ -f "fly.redis.toml" ]; then \
+	fi && \
+	if [ -f "fly.redis.toml" ]; then \
 		echo "Deploying Redis service..." && \
-		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-redis && \
+		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-redis APP_DIR=apps/$(app) && \
 		fly deploy -c fly.redis.toml \
 		--app $(app)$(if $(environment),-$(environment),)-redis \
 		--primary-region $(region); \
