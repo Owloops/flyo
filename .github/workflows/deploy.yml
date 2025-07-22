@@ -1,0 +1,45 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      apps:
+        description: 'Apps to deploy (comma-separated, or "all")'
+        required: true
+        default: 'all'
+      environment:
+        description: 'Environment suffix (e.g. "staging", "prod", "test")'
+        required: false
+        default: ''
+      region:
+        description: 'Deployment region'  
+        required: false
+        default: 'otp'
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.apps.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: apps
+        run: echo "matrix=$(make matrix apps='${{ inputs.apps }}')" >> $GITHUB_OUTPUT
+
+  deploy:
+    needs: discover
+    if: needs.discover.outputs.matrix != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.discover.outputs.matrix) }}
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy ${{ matrix.app }}${{ inputs.environment && format('-{0}', inputs.environment) || '' }}
+        run: make deploy app=${{ matrix.app }} environment=${{ inputs.environment }} region=${{ inputs.region }}
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
