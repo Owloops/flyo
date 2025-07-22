@@ -104,18 +104,17 @@ _create_app:
 	fi
 
 _deploy_services:
-	@cd apps/$(app) && \
-	if [ -f "fly.mongod.toml" ]; then \
+	@if [ -f "apps/$(app)/fly.mongod.toml" ]; then \
 		echo "Deploying MongoDB service..." && \
 		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-mongo APP_DIR=apps/$(app) && \
-		fly deploy -c fly.mongod.toml \
+		cd apps/$(app) && fly deploy -c fly.mongod.toml \
 		--app $(app)$(if $(environment),-$(environment),)-mongo \
 		--primary-region $(region); \
-	fi && \
-	if [ -f "fly.redis.toml" ]; then \
+	fi
+	@if [ -f "apps/$(app)/fly.redis.toml" ]; then \
 		echo "Deploying Redis service..." && \
 		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-redis APP_DIR=apps/$(app) && \
-		fly deploy -c fly.redis.toml \
+		cd apps/$(app) && fly deploy -c fly.redis.toml \
 		--app $(app)$(if $(environment),-$(environment),)-redis \
 		--primary-region $(region); \
 	fi
