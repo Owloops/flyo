@@ -4,13 +4,24 @@ region ?= otp
 
 validate_app = $(if $(app),,$(error Usage: make $@ app=<app> [environment=<env>] [region=<region>]))
 
+define get_app_env_args
+$(if $(filter librechat,$(app)),\
+	--env MONGO_URI="mongodb://$(app)$(if $(environment),-$(environment),)-mongo.internal:27017/LibreChat",\
+	$(if $(filter searxng,$(app)),\
+		--env SEARXNG_BASE_URL="https://$(app)$(if $(environment),-$(environment),).fly.dev/" \
+		--env SEARXNG_REDIS_URL="redis://$(app)$(if $(environment),-$(environment),)-redis.internal:6379/0",\
+	)\
+)
+endef
+
 .PHONY: help doctor create deploy status logs destroy matrix
 
 help: ## Show usage and commands
 	@printf "FlyApps - Self-hosted applications for Fly.io\n\n"
 	@printf "Usage: make <command> app=<app> [environment=<env>] [region=<region>]\n\n"
 	@printf "Commands:\n"
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-12s %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "  %-12s %s\n", $$1, $$2}'
 	@printf "\nExamples:\n"
 	@printf "  make doctor                                        # Check prerequisites first\n"
 	@printf "  make deploy app=glance                             # Deploy with default region\n"
@@ -22,11 +33,19 @@ help: ## Show usage and commands
 
 doctor: ## Check required tools and auth
 	@echo "Checking prerequisites..."
-	@if ! command -v fly >/dev/null 2>&1; then echo "Error: fly CLI not found in PATH"; exit 1; fi
-	@if ! command -v jq >/dev/null 2>&1; then echo "Error: jq not found in PATH"; exit 1; fi
-	@if ! command -v make >/dev/null 2>&1; then echo "Error: make not found in PATH"; exit 1; fi
+	@if ! command -v fly >/dev/null 2>&1; then \
+		echo "Error: fly CLI not found in PATH"; exit 1; \
+	fi
+	@if ! command -v jq >/dev/null 2>&1; then \
+		echo "Error: jq not found in PATH"; exit 1; \
+	fi
+	@if ! command -v make >/dev/null 2>&1; then \
+		echo "Error: make not found in PATH"; exit 1; \
+	fi
 	@echo "OK: fly CLI found ($(shell fly version | head -1))"
-	@if ! fly auth whoami >/dev/null 2>&1; then echo "Error: Not authenticated with Fly.io - run 'fly auth login'"; exit 1; fi
+	@if ! fly auth whoami >/dev/null 2>&1; then \
+		echo "Error: Not authenticated with Fly.io - run 'fly auth login'"; exit 1; \
+	fi
 	@echo "OK: Fly.io authenticated as $(shell fly auth whoami)"
 	@echo "OK: jq found ($(shell jq --version))"
 	@echo "OK: Apps directory apps/ ($(shell find apps -name "fly.toml" 2>/dev/null | wc -l | tr -d ' ') apps found)"
@@ -34,35 +53,18 @@ doctor: ## Check required tools and auth
 
 create: ## Create new app on Fly.io
 	$(call validate_app)
-	@cd apps/$(app) && \
-	if fly status --app $(app)$(if $(environment),-$(environment),) >/dev/null 2>&1; then \
-		echo "App $(app)$(if $(environment),-$(environment),) already exists, skipping creation..."; \
-	else \
-		echo "Creating Fly app $(app)$(if $(environment),-$(environment),)..." && \
-		fly apps create $(app)$(if $(environment),-$(environment),) && \
-		echo "App $(app)$(if $(environment),-$(environment),) created successfully"; \
-	fi
+	@cd apps/$(app) && $(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)
 
 deploy: create ## Deploy app with services
 	$(call validate_app)
 	@echo "Deploying $(app)$(if $(environment),-$(environment),) to $(region)..."
 	@cd apps/$(app) && \
 		echo "Deploying main application..." && \
-		fly deploy --app $(app)$(if $(environment),-$(environment),) --primary-region $(region) && \
-		if [ -f "fly.mongod.toml" ]; then \
-			echo "Deploying MongoDB service..." && \
-			if ! fly status --app $(app)$(if $(environment),-$(environment),)-mongo >/dev/null 2>&1; then \
-				fly apps create $(app)$(if $(environment),-$(environment),)-mongo; \
-			fi && \
-			fly deploy -c fly.mongod.toml --app $(app)$(if $(environment),-$(environment),)-mongo --primary-region $(region); \
-		fi && \
-		if [ -f "fly.redis.toml" ]; then \
-			echo "Deploying Redis service..." && \
-			if ! fly status --app $(app)$(if $(environment),-$(environment),)-redis >/dev/null 2>&1; then \
-				fly apps create $(app)$(if $(environment),-$(environment),)-redis; \
-			fi && \
-			fly deploy -c fly.redis.toml --app $(app)$(if $(environment),-$(environment),)-redis --primary-region $(region); \
-		fi
+		fly deploy \
+			--app $(app)$(if $(environment),-$(environment),) \
+			--primary-region $(region) \
+			$(call get_app_env_args) && \
+		$(MAKE) _deploy_services app=$(app) $(if $(environment),environment=$(environment),) region=$(region)
 	@echo "Deployment complete for $(app)$(if $(environment),-$(environment),)"
 
 status: ## Show app status
@@ -83,7 +85,35 @@ destroy: ## Delete app permanently
 
 matrix: ## List apps as JSON
 	@if [ "$(apps)" = "all" ] || [ -z "$(apps)" ]; then \
-	find apps -name "fly.toml" 2>/dev/null | sed 's|apps/||;s|/fly.toml||' | sort | jq -R -s -c 'split("\n")[:-1]'; \
+	find apps -name "fly.toml" 2>/dev/null | \
+		sed 's|apps/||;s|/fly.toml||' | \
+		sort | \
+		jq -R -s -c 'split("\n")[:-1]'; \
 	else \
 		echo "$(apps)" | tr ',' '\n' | jq -R -s -c 'split("\n")[:-1]'; \
+	fi
+
+_create_app:
+	@if fly status --app $(APP_NAME) >/dev/null 2>&1; then \
+		echo "App $(APP_NAME) already exists, skipping creation..."; \
+	else \
+		echo "Creating Fly app $(APP_NAME)..." && \
+		fly apps create $(APP_NAME) && \
+		echo "App $(APP_NAME) created successfully"; \
+	fi
+
+_deploy_services:
+	@if [ -f "fly.mongod.toml" ]; then \
+		echo "Deploying MongoDB service..." && \
+		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-mongo && \
+		fly deploy -c fly.mongod.toml \
+		--app $(app)$(if $(environment),-$(environment),)-mongo \
+		--primary-region $(region); \
+	fi
+	@if [ -f "fly.redis.toml" ]; then \
+		echo "Deploying Redis service..." && \
+		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-redis && \
+		fly deploy -c fly.redis.toml \
+		--app $(app)$(if $(environment),-$(environment),)-redis \
+		--primary-region $(region); \
 	fi
