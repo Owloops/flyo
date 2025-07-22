@@ -34,11 +34,16 @@ doctor: ## Check required tools and auth
 
 create: ## Create new app on Fly.io
 	$(call validate_app)
-	@echo "Creating Fly app $(app)$(if $(environment),-$(environment),)..."
-	@cd apps/$(app) && fly apps create $(app)$(if $(environment),-$(environment),)
-	@echo "App $(app)$(if $(environment),-$(environment),) created successfully"
+	@cd apps/$(app) && \
+	if fly status --app $(app)$(if $(environment),-$(environment),) >/dev/null 2>&1; then \
+		echo "App $(app)$(if $(environment),-$(environment),) already exists, skipping creation..."; \
+	else \
+		echo "Creating Fly app $(app)$(if $(environment),-$(environment),)..." && \
+		fly apps create $(app)$(if $(environment),-$(environment),) && \
+		echo "App $(app)$(if $(environment),-$(environment),) created successfully"; \
+	fi
 
-deploy: ## Deploy app with services
+deploy: create ## Deploy app with services
 	$(call validate_app)
 	@echo "Deploying $(app)$(if $(environment),-$(environment),) to $(region)..."
 	@cd apps/$(app) && \
