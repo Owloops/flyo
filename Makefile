@@ -63,8 +63,8 @@ deploy: create ## Deploy app with services
 		fly deploy \
 			--app $(app)$(if $(environment),-$(environment),) \
 			--primary-region $(region) \
-			$(call get_app_env_args) && \
-		$(MAKE) _deploy_services app=$(app) $(if $(environment),environment=$(environment),) region=$(region)
+			$(call get_app_env_args)
+	@$(MAKE) _deploy_services app=$(app) $(if $(environment),environment=$(environment),) region=$(region)
 	@echo "Deployment complete for $(app)$(if $(environment),-$(environment),)"
 
 status: ## Show app status
