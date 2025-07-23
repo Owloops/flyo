@@ -1,5 +1,5 @@
 app = "redlib"
-primary_region = "otp"
+primary_region = "fra"
 
 [build]
   image = "quay.io/redlib/redlib:latest"

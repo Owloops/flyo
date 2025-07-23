@@ -1,5 +1,5 @@
 app = "librechat-mongod"
-primary_region = "otp"
+primary_region = "fra"
 
 [build]
   image = "mongo:latest"

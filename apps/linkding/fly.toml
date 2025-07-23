@@ -1,5 +1,5 @@
 app = "linkding"
-primary_region = "otp"
+primary_region = "fra"
 
 [build]
   image = "sissbruecker/linkding:latest"

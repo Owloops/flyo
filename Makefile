@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-region ?= otp
+region ?= fra
 
 validate_app = $(if $(app),,$(error Usage: make $@ app=<app> [environment=<env>] [region=<region>]))
 

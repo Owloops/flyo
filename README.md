@@ -69,7 +69,7 @@ Apps like `librechat` and `searxng` automatically deploy additional services (Mo
 1. Go to Actions > Deploy workflow
 2. Select apps to deploy
 3. Set environment (optional)
-4. Set region (default: otp)
+4. Set region (default: fra)
 
 Add `FLY_API_TOKEN` to your repository secrets.
 

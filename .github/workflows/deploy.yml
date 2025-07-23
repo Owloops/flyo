@@ -14,7 +14,7 @@ on:
       region:
         description: 'Deployment region'  
         required: false
-        default: 'otp'
+        default: 'fra'
 
 jobs:
   discover:

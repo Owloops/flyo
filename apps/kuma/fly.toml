@@ -1,5 +1,5 @@
 app = "kuma"
-primary_region = "otp"
+primary_region = "fra"
 
 [build]
   image = "louislam/uptime-kuma:latest"
