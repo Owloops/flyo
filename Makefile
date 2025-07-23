@@ -42,12 +42,16 @@ doctor: ## Check required tools and auth
 	@if ! command -v make >/dev/null 2>&1; then \
 		echo "Error: make not found in PATH"; exit 1; \
 	fi
+	@if ! command -v envsubst >/dev/null 2>&1; then \
+		echo "Error: envsubst not found in PATH"; exit 1; \
+	fi
 	@echo "OK: fly CLI found ($(shell fly version | head -1))"
 	@if ! fly auth whoami >/dev/null 2>&1; then \
 		echo "Error: Not authenticated with Fly.io - run 'fly auth login'"; exit 1; \
 	fi
 	@echo "OK: Fly.io authenticated as $(shell fly auth whoami)"
 	@echo "OK: jq found ($(shell jq --version))"
+	@echo "OK: envsubst found"
 	@echo "OK: Apps directory apps/ ($(shell find apps -name "fly.toml" 2>/dev/null | wc -l | tr -d ' ') apps found)"
 	@echo "All prerequisites satisfied!"
 
@@ -58,11 +62,19 @@ create: ## Create new app on Fly.io
 deploy: create ## Deploy app with services
 	$(call validate_app)
 	@echo "Deploying $(app)$(if $(environment),-$(environment),) to $(region)..."
+	@if [ "$(app)" = "glance" ]; then \
+		cd apps/$(app) && \
+		ENVIRONMENT_SUFFIX=$(if $(environment),-$(environment),) envsubst < glance.yml.template > glance.yml; \
+	fi
+	@if [ "$(app)" = "librechat" ]; then \
+		cd apps/$(app) && \
+		ENVIRONMENT_SUFFIX=$(if $(environment),-$(environment),) envsubst < librechat.example.yaml.template > librechat.example.yaml; \
+	fi
 	@cd apps/$(app) && \
 		echo "Deploying main application..." && \
 		fly deploy \
 			--app $(app)$(if $(environment),-$(environment),) \
-			--primary-region $(region) \
+			$(if $(filter ollama,$(app)),,--primary-region $(region)) \
 			$(call get_app_env_args)
 	@$(MAKE) _deploy_services app=$(app) $(if $(environment),environment=$(environment),) region=$(region)
 	@echo "Deployment complete for $(app)$(if $(environment),-$(environment),)"

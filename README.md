@@ -8,7 +8,7 @@ Ready-to-deploy self-hosted applications for Fly.io.
 ## Prerequisites
 
 - [Fly CLI](https://fly.io/docs/flyctl/install/) installed and authenticated
-- `make` and `jq`
+- `make`, `jq`, and `envsubst`
 
 Run `make doctor` to verify everything is set up.
 

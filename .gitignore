@@ -6,6 +6,10 @@ fly.log
 .env
 .env.local
 
+# Generated config files
+apps/glance/glance.yml
+apps/librechat/librechat.example.yaml
+
 # OS files
 .DS_Store
 Thumbs.db

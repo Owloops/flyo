@@ -12,9 +12,9 @@ endpoints:
   custom:
       - name: "Ollama"
         apiKey: "ollama"
-        # Update this URL to match your Ollama deployment name and environment
+        # Dynamic URL based on environment
         # Format: http://ollama[-environment].flycast/v1/
-        baseURL: "http://ollama.flycast/v1/" 
+        baseURL: "http://ollama${ENVIRONMENT_SUFFIX}.flycast/v1/" 
         models:
           default: [
             "deepseek-r1:70b",

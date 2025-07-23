@@ -28,21 +28,24 @@ jobs:
         run: echo "matrix=$(make matrix apps='${{ inputs.apps }}')" >> $GITHUB_OUTPUT
 
   deploy:
+    name: deploy (worker ${{ matrix.worker }})
     needs: discover
     if: needs.discover.outputs.matrix != '[]'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     strategy:
       matrix:
-        app: ${{ fromJson(needs.discover.outputs.matrix) }}
+        worker: [1, 2, 3, 4]
       fail-fast: false
+    env:
+      WORKER_COUNT: 4
     steps:
       - uses: actions/checkout@v4
       - name: Install Fly CLI
         run: |
           curl -L https://fly.io/install.sh | sh
           echo "/home/runner/.fly/bin" >> $GITHUB_PATH
-      - name: Deploy ${{ matrix.app }}${{ inputs.environment && format('-{0}', inputs.environment) || '' }}
-        run: make deploy app=${{ matrix.app }} environment=${{ inputs.environment }} region=${{ inputs.region }}
+      - name: Deploy apps
+        run: .github/scripts/deploy-worker.sh ${{ matrix.worker }} ${{ env.WORKER_COUNT }} '${{ inputs.apps }}' '${{ inputs.environment }}' '${{ inputs.region }}'
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
