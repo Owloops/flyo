@@ -1,8 +1,8 @@
-# FlyApps
+# Flyons
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/owloops/flyapps.svg)](https://github.com/owloops/flyapps/stargazers)
-[![Last commit](https://img.shields.io/github/last-commit/owloops/flyapps.svg)](https://github.com/owloops/flyapps/commits/main)
+[![GitHub stars](https://img.shields.io/github/stars/Owloops/flyons.svg)](https://github.com/Owloops/flyons/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/Owloops/flyons.svg)](https://github.com/Owloops/flyons/commits/main)
 
 Ready-to-deploy self-hosted applications for Fly.io.
 
