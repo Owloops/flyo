@@ -9,6 +9,8 @@ Ready-to-deploy self-hosted applications for Fly.io.
 
 Run `make doctor` to verify everything is set up.
 
+**Optional**: Disable analytics warnings with `fly settings analytics disable`
+
 ## Available Apps
 
 | App | Description | Services |
@@ -35,7 +37,7 @@ make deploy app=glance
 make deploy app=glance environment=staging
 
 # Custom region
-make deploy app=librechat environment=prod region=fra
+make deploy app=glance environment=prod region=fra
 
 # Check status
 make status app=glance environment=staging
@@ -116,13 +118,6 @@ mkdir apps/myapp && cd apps/myapp
 fly launch --no-deploy
 ```
 
-The `fly launch` command will:
-
-- Detect your application type
-- Generate optimized `fly.toml` configuration
-- Set up proper ports and health checks
-- Suggest databases/services if needed
-
 ### 2. Deploy
 
 ```bash
@@ -132,25 +127,6 @@ make deploy app=myapp environment=prod region=fra
 ### 3. Create README (Optional)
 
 Copy and customize the [README template](templates/README.template.md).
-
-## Directory Structure
-
-```text
-flyapps/
-├── Makefile
-├── templates/
-│   ├── README.template.md
-│   └── fly.template.toml
-├── apps/
-│   ├── glance/fly.toml
-│   ├── librechat/
-│   │   ├── fly.toml
-│   │   └── fly.mongod.toml
-│   └── searxng/
-│       ├── fly.toml
-│       └── fly.redis.toml
-└── .github/workflows/deploy.yml
-```
 
 ## License
 
