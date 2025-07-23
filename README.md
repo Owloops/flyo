@@ -1,141 +1,98 @@
-# Flyons
+# Flyo
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Last commit](https://img.shields.io/github/last-commit/Owloops/flyons.svg)](https://github.com/Owloops/flyons/commits/main)
+[![Last commit](https://img.shields.io/github/last-commit/Owloops/flyo.svg)](https://github.com/Owloops/flyo/commits/main)
 
-Ready-to-deploy self-hosted applications for Fly.io.
+Deploy self-hosted applications to Fly.io with a single command. Pre-configured deployments for open-source tools with automated GitHub Actions workflows.
+
+## Getting Started
+
+Fork this repository or use it as a template:
+
+1. Create your repository (fork or template)
+2. Add `FLY_API_TOKEN` to repository secrets
+3. Deploy via GitHub Actions or command line
+
+The system parallelizes deployments across multiple workers automatically.
 
 ## Prerequisites
 
-- [Fly CLI](https://fly.io/docs/flyctl/install/) installed and authenticated
-- `make`, `jq`, and `envsubst`
+- [Fly CLI](https://fly.io/docs/flyctl/install/) installed
+- `make`, `jq`, and `envsubst` (standard tools)
 
-Run `make doctor` to verify everything is set up.
+Run `make doctor` to verify your setup.
 
-**Optional**: Disable analytics warnings with `fly settings analytics disable`
+**Tip**: Disable analytics warnings with `fly settings analytics disable`
 
 ## Available Apps
 
-| App | Description | Services |
-|-----|-------------|----------|
-| glance | Personal dashboard | No |
-| kuma | Uptime monitoring | No |
+| App | Description | Dependencies |
+|-----|-------------|-------------|
+| glance | Personal dashboard | - |
+| kuma | Uptime monitoring | - |
 | librechat | AI chat interface | MongoDB |
-| linkding | Bookmark manager | No |
-| memos | Note-taking app | No |
-| ollama | Local LLM server | No |
-| redlib | Reddit frontend | No |
+| linkding | Bookmark manager | - |
+| memos | Note-taking app | - |
+| ollama | Local LLM server | - |
+| redlib | Reddit frontend | - |
 | searxng | Meta search engine | Redis |
 
 ## Quick Start
 
 ```bash
-# Authenticate
+# Authenticate with Fly.io
 fly auth login
 
 # Deploy an app
 make deploy app=glance
 
-# With environment suffix
+# Deploy with environment suffix
 make deploy app=glance environment=staging
 
-# Custom region
-make deploy app=glance environment=prod region=fra
+# Deploy to specific region
+make deploy app=glance region=fra
 
-# Check status
-make status app=glance environment=staging
+# Development workflow
+make deploy app=memos environment=dev
+make logs app=memos environment=dev
+make destroy app=memos environment=dev
 ```
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `help` | Show usage |
-| `doctor` | Check prerequisites |
-| `create` | Create new app |
-| `deploy` | Deploy app |
-| `status` | Show app status |
-| `logs` | Show recent logs |
-| `destroy` | Delete app |
-| `matrix` | List apps as JSON |
+| Command | Description | Example |
+|---------|-------------|----------|
+| `help` | Show all available commands | `make help` |
+| `doctor` | Verify prerequisites | `make doctor` |
+| `deploy` | Deploy an app | `make deploy app=glance` |
+| `status` | Check app status | `make status app=glance` |
+| `logs` | View recent logs | `make logs app=glance` |
+| `destroy` | Remove an app | `make destroy app=glance` |
 
-## Multi-Service Apps
-
-Apps like `librechat` and `searxng` automatically deploy additional services (MongoDB, Redis) when needed.
-
-## GitHub Actions
-
-1. Go to Actions > Deploy workflow
-2. Select apps to deploy
-3. Set environment (optional)
-4. Set region (default: fra)
-
-Add `FLY_API_TOKEN` to your repository secrets.
-
-## Examples
-
-```bash
-# Development workflow
-make create app=memos environment=dev
-make deploy app=memos environment=dev
-make logs app=memos environment=dev
-make destroy app=memos environment=dev
-
-# Production deployment
-make deploy app=librechat environment=prod region=fra
-
-# Multiple apps
-for app in glance kuma linkding; do
-  make deploy app=$app
-done
-```
-
-## Troubleshooting
-
-### Authentication Error
-
-```bash
-fly auth login
-```
-
-### App Already Exists
-
-```bash
-fly apps list
-make deploy app=glance environment=v2
-```
-
-### Region Not Available
-
-```bash
-fly platform regions
-make deploy app=glance region=ams
-```
+**Note**: Apps with dependencies (e.g., `librechat`, `searxng`) automatically deploy required services.
 
 ## Adding New Apps
 
-### 1. Create App Structure
-
 ```bash
+# Create app structure
 mkdir apps/myapp && cd apps/myapp
 fly launch --no-deploy
+
+# Deploy
+make deploy app=myapp
 ```
 
-### 2. Deploy
-
-```bash
-make deploy app=myapp environment=prod region=fra
-```
-
-### 3. Create README (Optional)
-
-Copy and customize the [README template](templates/README.template.md).
+Optional: Add documentation using the [README template](templates/README.template.md).
 
 ## Contributing
 
+We encourage contributions to the main repository rather than maintaining separate forks. This helps the community benefit from improvements:
+
 - **Add new apps**: See [Adding New Apps](#adding-new-apps) section
-- **Report issues**: Submit bug reports and feature requests
-- **Submit PRs**: Follow existing code style and update documentation
+- **Improve existing apps**: Enhance configurations, add features, fix issues
+- **Documentation**: Improve clarity, add examples, fix errors
+
+Contributions to this repository benefit everyone using Flyo. Submit pull requests with your improvements!
 
 ## License
 

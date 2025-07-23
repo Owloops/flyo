@@ -17,7 +17,7 @@ endef
 .PHONY: help doctor create deploy status logs destroy matrix
 
 help: ## Show usage and commands
-	@printf "FlyApps - Self-hosted applications for Fly.io\n\n"
+	@printf "Flyo - Self-hosted applications for Fly.io\n\n"
 	@printf "Usage: make <command> app=<app> [environment=<env>] [region=<region>]\n\n"
 	@printf "Commands:\n"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
