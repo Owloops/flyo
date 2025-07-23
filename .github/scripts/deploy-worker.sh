@@ -61,7 +61,7 @@ info "Deploying ${#WORKER_APPS[@]}/${TOTAL_APPS}: ${WORKER_APPS[*]}"
 	printf "# 🚀 Worker %s/%s\n\n" "$WORKER_INDEX" "$TOTAL_WORKERS"
 	printf "## Apps\n\n"
 	for app in "${WORKER_APPS[@]}"; do
-		printf "- \`%s%s\`\n" "$app" "${ENVIRONMENT:+-$ENVIRONMENT}"
+		printf -- "- \`%s%s\`\n" "$app" "${ENVIRONMENT:+-$ENVIRONMENT}"
 	done
 	printf "\n_Deploy started at %s_\n\n" "$(date '+%Y-%m-%d %H:%M:%S')"
 	printf "**Environment:** %s\n" "${ENVIRONMENT:-default}"
