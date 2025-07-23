@@ -1,4 +1,4 @@
-app = "searxng-pg-redis"
+app = "searxng-redis"
 primary_region = "otp"
 
 [build]

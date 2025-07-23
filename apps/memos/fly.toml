@@ -1,4 +1,4 @@
-app = "memos-pg"
+app = "memos"
 primary_region = "otp"
 
 [build]

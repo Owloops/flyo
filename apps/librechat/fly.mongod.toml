@@ -1,4 +1,4 @@
-app = "librechat-pg-mongod"
+app = "librechat-mongod"
 primary_region = "otp"
 
 [build]

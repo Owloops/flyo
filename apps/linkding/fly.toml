@@ -1,4 +1,4 @@
-app = "linkding-pg"
+app = "linkding"
 primary_region = "otp"
 
 [build]

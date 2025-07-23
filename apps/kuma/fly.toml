@@ -1,4 +1,4 @@
-app = "kuma-pg"
+app = "kuma"
 primary_region = "otp"
 
 [build]

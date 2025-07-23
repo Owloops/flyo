@@ -16,6 +16,8 @@ make deploy app=librechat environment=prod region=fra
 # Register your first user account (first user becomes admin)
 ```
 
+**Ollama Integration**: To use with Ollama, update the `baseURL` in `librechat.example.yaml` to match your Ollama deployment name and environment (e.g., `http://ollama-prod.flycast/v1/`).
+
 ## Architecture
 
 - **Main app**: LibreChat web interface

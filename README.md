@@ -1,5 +1,9 @@
 # FlyApps
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/owloops/flyapps.svg)](https://github.com/owloops/flyapps/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/owloops/flyapps.svg)](https://github.com/owloops/flyapps/commits/main)
+
 Ready-to-deploy self-hosted applications for Fly.io.
 
 ## Prerequisites
@@ -127,6 +131,12 @@ make deploy app=myapp environment=prod region=fra
 ### 3. Create README (Optional)
 
 Copy and customize the [README template](templates/README.template.md).
+
+## Contributing
+
+- **Add new apps**: See [Adding New Apps](#adding-new-apps) section
+- **Report issues**: Submit bug reports and feature requests
+- **Submit PRs**: Follow existing code style and update documentation
 
 ## License
 
