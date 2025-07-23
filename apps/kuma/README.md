@@ -1,41 +1,19 @@
-# Kuma on Fly.io
+# Kuma
 
-Guide for setting up Kuma instance on Fly.io.
+Uptime monitoring tool with status page and alerting capabilities for tracking service availability.
 
-## Setup
-
-You'll need a [Fly.io](https://fly.io/) account, and the [Flyctl CLI](https://fly.io/docs/flyctl/installing/).
-
-### Apps
-
-Clone this repo. Find and replace the application name `kuma-pg` with anything you like.
-
-_kuma_:
+## Quick Deploy
 
 ```bash
-fly apps create kuma-pg
+make deploy app=kuma environment=prod region=fra
 ```
 
-## Deploy
+## Useful Commands
 
-```bash
-fly deploy
-```
-
-### Operating your instance
-
-Useful resources for operating and debugging a running instance include `fly logs`, `fly scale show`, `fly ssh console`, the Metrics section of `fly dashboard`.
-
-### Upgrading Kuma
-
-To upgrade to a new version of Kuma, re-deploy the app.
-
-```bash
-fly deploy
-```
-
-## You're done
-
-Enjoy your Kuma server :)
-
-If the fly URL keeps loading, try destroying apps and re-creating them.
+| Command | Purpose |
+|---------|---------|
+| `fly logs --app kuma-prod` | View app logs |
+| `fly status --app kuma-prod` | Check app status |
+| `fly ssh console --app kuma-prod` | Access terminal |
+| `fly dashboard --app kuma-prod` | Open web dashboard |
+| `fly scale show --app kuma-prod` | Check scaling |

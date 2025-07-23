@@ -107,11 +107,40 @@ fly platform regions
 make deploy app=glance region=ams
 ```
 
+## Adding New Apps
+
+### 1. Create App Structure
+
+```bash
+mkdir apps/myapp && cd apps/myapp
+fly launch --no-deploy
+```
+
+The `fly launch` command will:
+
+- Detect your application type
+- Generate optimized `fly.toml` configuration
+- Set up proper ports and health checks
+- Suggest databases/services if needed
+
+### 2. Deploy
+
+```bash
+make deploy app=myapp environment=prod region=fra
+```
+
+### 3. Create README (Optional)
+
+Copy and customize the [README template](templates/README.template.md).
+
 ## Directory Structure
 
 ```text
 flyapps/
 ├── Makefile
+├── templates/
+│   ├── README.template.md
+│   └── fly.template.toml
 ├── apps/
 │   ├── glance/fly.toml
 │   ├── librechat/
@@ -125,4 +154,4 @@ flyapps/
 
 ## License
 
-Open source. Individual apps may have their own licenses.
+This project is licensed under the [MIT License](LICENSE).

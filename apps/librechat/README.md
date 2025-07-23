@@ -1,54 +1,34 @@
-# LibreChat on Fly.io
+# LibreChat
 
-Guide for setting up LibreChat instance on Fly.io.
+AI chat interface with support for multiple language models.
 
-## Setup
-
-You'll need a [Fly.io](https://fly.io/) account, and the [Flyctl CLI](https://fly.io/docs/flyctl/installing/).
-
-### Apps
-
-Clone this repo. Find and replace the application name `librechat-pg` with anything you like.
-
-_librechat_:
+## Quick Deploy
 
 ```bash
-fly apps create librechat-pg
+make deploy app=librechat environment=prod region=fra
 ```
 
-_mongodb_:
+## Initial Configuration
 
 ```bash
-fly apps create librechat-pg-mongod
+# Access the app to create your first admin account
+# Navigate to https://librechat-prod.fly.dev
+# Register your first user account (first user becomes admin)
 ```
 
-## Deploy
+## Architecture
 
-```bash
-bin/fly-mongod deploy
-fly deploy
-```
+- **Main app**: LibreChat web interface
+- **MongoDB**: User data and chat history
 
-### Operating your instance
+The Makefile automatically creates and deploys both services.
 
-Useful resources for operating and debugging a running instance include `fly logs`, `fly scale show`, `fly ssh console`, the Metrics section of `fly dashboard`.
+## Useful Commands
 
-### Upgrading LibreChat
-
-To upgrade to a new version of LibreChat, re-deploy the app.
-
-```bash
-fly deploy
-```
-
-You should also regularly update MongoDB.
-
-```bash
-bin/fly-mongod deploy
-```
-
-## You're done
-
-Enjoy your LibreChat server :)
-
-If the fly URL keeps loading, try destroying apps and re-creating them.
+| Command | Purpose |
+|---------|---------|
+| `fly logs --app librechat-prod` | View main app logs |
+| `fly status --app librechat-prod` | Check app status |
+| `fly logs --app librechat-prod-mongo` | View MongoDB logs |
+| `fly ssh console --app librechat-prod` | Access main app |
+| `fly dashboard --app librechat-prod` | Open web dashboard |

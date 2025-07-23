@@ -1,96 +1,42 @@
-# Linkding on Fly.io
+# Linkding
 
-Guide for setting up Linkding instance on Fly.io.
+Personal bookmark manager with web UI and browser extensions.
 
-## Setup
-
-You'll need a [Fly.io](https://fly.io/) account, and the [Flyctl CLI](https://fly.io/docs/flyctl/installing/).
-
-### Apps
-
-Clone this repo. Find and replace the application name `linkding-pg` with anything you like.
-
-_linkding_:
+## Quick Deploy
 
 ```bash
-fly apps create linkding-pg
+make deploy app=linkding environment=prod region=fra
 ```
 
-## Deploy
+## Initial Configuration
+
+After deployment, create an admin user:
 
 ```bash
-fly deploy
-```
-
-### Initial Setup
-
-After first deployment, create an admin user:
-
-```bash
-fly ssh console
+fly ssh console --app linkding-{environment}
 source /opt/venv/bin/activate
 cd /etc/linkding
 python manage.py createsuperuser --username=admin --email=admin@example.com
 ```
 
-### Import Existing Bookmarks
+### Import Bookmarks
 
-To import bookmarks from Firefox or other browsers:
+**From Firefox**: Firefox → Bookmarks → Export Bookmarks to HTML → Upload in linkding Settings
 
-1. **Export from Firefox:**
-   - Open Firefox → Bookmarks → Manage Bookmarks (Ctrl+Shift+O)
-   - Import and Backup → Export Bookmarks to HTML
-   - Save the HTML file
+**From Other Browsers**: Export as HTML/Netscape format → Import via linkding web interface
 
-2. **Import to Linkding:**
-   - Login to your linkding instance
-   - Go to Settings → Import
-   - Upload the HTML file from Firefox
-   - Linkding will import all bookmarks with their folder structure
+### Backup Options
 
-**Supported formats:** HTML (from any browser), Netscape bookmark format
+1. **Web Export**: Login → Settings → Export → Download regularly
+2. **Database Backup**: SSH console → `python manage.py dumpdata > backup.json`
+3. **Automated**: [Litestream integration](https://github.com/fspoettel/linkding-on-fly)
 
-### Operating your instance
+## Useful Commands
 
-Useful resources for operating and debugging a running instance include `fly logs`, `fly scale show`, `fly ssh console`, the Metrics section of `fly dashboard`.
-
-### Upgrading Linkding
-
-To upgrade to a new version of Linkding, re-deploy the app.
-
-```bash
-fly deploy
-```
-
-## Backups (Recommended)
-
-Since bookmarks are personal data, consider setting up backups:
-
-### Option 1: Manual Export (Simple)
-
-1. Login to your linkding instance
-2. Go to Settings → Export
-3. Download HTML or CSV backup regularly
-
-### Option 2: Database Backup via SSH
-
-```bash
-fly ssh console
-source /opt/venv/bin/activate
-cd /etc/linkding
-python manage.py dumpdata > backup.json
-# Copy backup.json to local machine via scp or other means
-```
-
-### Option 3: Automated Backups with Litestream
-
-For automatic continuous backups to cloud storage, see this comprehensive guide:
-<https://github.com/fspoettel/linkding-on-fly>
-
-This requires a custom Dockerfile but provides real-time SQLite replication to Backblaze B2.
-
-## You're done
-
-Enjoy your Linkding server :)
-
-If the fly URL keeps loading, try destroying apps and re-creating them.
+| Command | Purpose |
+|---------|---------|
+| `fly logs --app linkding-prod` | View app logs |
+| `fly status --app linkding-prod` | Check app status |
+| `fly ssh console --app linkding-prod` | Access terminal |
+| `fly dashboard --app linkding-prod` | Open web dashboard |
+| `fly scale show --app linkding-prod` | Check scaling |

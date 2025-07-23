@@ -1,41 +1,27 @@
-# Memos on Fly.io
+# Memos
 
-Guide for setting up Memos instance on Fly.io.
+Privacy-focused note-taking service with markdown support for personal knowledge management.
 
-## Setup
-
-You'll need a [Fly.io](https://fly.io/) account, and the [Flyctl CLI](https://fly.io/docs/flyctl/installing/).
-
-### Apps
-
-Clone this repo. Find and replace the application name `memos-pg` with anything you like.
-
-_memos_:
+## Quick Deploy
 
 ```bash
-fly apps create memos-pg
+make deploy app=memos environment=prod region=fra
 ```
 
-## Deploy
+## Initial Configuration
 
 ```bash
-fly deploy
+# Access the app to create your first admin account
+# Navigate to https://memos-prod.fly.dev
+# Register your first user account (first user becomes admin)
 ```
 
-### Operating your instance
+## Useful Commands
 
-Useful resources for operating and debugging a running instance include `fly logs`, `fly scale show`, `fly ssh console`, the Metrics section of `fly dashboard`.
-
-### Upgrading Memos
-
-To upgrade to a new version of Memos, re-deploy the app.
-
-```bash
-fly deploy
-```
-
-## You're done
-
-Enjoy your Memos server :)
-
-If the fly URL keeps loading, try destroying apps and re-creating them.
+| Command | Purpose |
+|---------|---------|
+| `fly logs --app memos-prod` | View app logs |
+| `fly status --app memos-prod` | Check app status |
+| `fly ssh console --app memos-prod` | Access terminal |
+| `fly dashboard --app memos-prod` | Open web dashboard |
+| `fly scale show --app memos-prod` | Check scaling |

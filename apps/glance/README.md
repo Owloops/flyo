@@ -1,41 +1,19 @@
-# Glance on Fly.io
+# Glance
 
-Follow this guide to set up and deploy your own [Glance](https://github.com/glanceapp/glance) instance on Fly.io in just a few steps.
+Personal dashboard with customizable widgets and feeds for monitoring services, weather, and more.
 
-## Setup
-
-You'll need a [Fly.io](https://fly.io/) account, and the [Flyctl CLI](https://fly.io/docs/flyctl/installing/).
-
-### Apps
-
-Clone this repository. Replace the application name `glance-pg` with any unique name of your choice.
-
-_glance_:
+## Quick Deploy
 
 ```bash
-fly apps create glance-pg
+make deploy app=glance environment=prod region=fra
 ```
 
-## Deploy
+## Useful Commands
 
-```bash
-fly deploy
-```
-
-### Operating your instance
-
-Useful resources for operating and debugging a running instance include `fly logs`, `fly scale show`, `fly ssh console`, the Metrics section of `fly dashboard`.
-
-### Upgrading Glance
-
-To upgrade to a new version of Glance, re-deploy the app.
-
-```bash
-fly deploy
-```
-
-## You're done
-
-Enjoy your glance server :)
-
-If the fly URL keeps loading, try destroying apps and re-creating them.
+| Command | Purpose |
+|---------|---------|
+| `fly logs --app glance-prod` | View app logs |
+| `fly status --app glance-prod` | Check app status |
+| `fly ssh console --app glance-prod` | Access terminal |
+| `fly dashboard --app glance-prod` | Open web dashboard |
+| `fly scale show --app glance-prod` | Check scaling |

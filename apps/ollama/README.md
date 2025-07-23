@@ -1,60 +1,55 @@
-# Ollama on Fly.io
+# Ollama
 
-Guide for setting up Ollama on Fly.io.
+Local LLM server for running language models privately.
 
-## Setup
-
-You'll need a [Fly.io](https://fly.io/) account, and the [Flyctl CLI](https://fly.io/docs/flyctl/installing/).
-
-### Apps
-
-Clone this repo. Find and replace the application name `ollama-pg` with anything you like.
-
-_ollama_:
+## Quick Deploy
 
 ```bash
-fly apps create ollama-pg
+make deploy app=ollama environment=prod region=fra
 ```
 
-## Private Network
+## Required Setup
 
-We don’t want to expose the GPU to the internet, so we’re going to create a flycast address to expose it to other services on your private network. To create a flycast address, run this command:
+### Private Network Configuration
 
 ```bash
-fly ips allocate-v6 --private
+# Create flycast address
+fly ips allocate-v6 --private --app ollama-{environment}
+
+# Remove public IPs (keep only flycast)
+fly ips list --app ollama-{environment}
+fly ips release {public-ip} --app ollama-{environment}
 ```
 
-Next, you may need to remove all of the other public IP addresses for the app to lock it away from the public. Get a list of them with `fly ips list` and then remove them with `fly ips release <ip>`. Delete everything but your flycast IP.
+## Initial Configuration
 
-## Deploy
+### Model Management
+
+Access via temporary machine:
 
 ```bash
-fly deploy
+fly m run -e OLLAMA_HOST=http://ollama-{environment}.flycast --shell ollama/ollama
 ```
 
-### Operating your instance
-
-Useful resources for operating and debugging a running instance include `fly logs`, `fly scale show`, `fly ssh console`, the Metrics section of `fly dashboard`.
-
-```bash
-fly m run -e OLLAMA_HOST=http://ollama-pg.flycast --shell ollama/ollama
-```
+### Pull Models
 
 ```bash
 ollama pull llama3
 ollama pull phi3
+ollama pull codellama
 ```
 
-### Upgrading Ollama
+## Architecture
 
-To upgrade to a new version of Ollama, re-deploy the app.
+- **Main app**: Ollama LLM server on private network
+- **Access**: Via flycast address only (no public access)
 
-```bash
-fly deploy
-```
+## Useful Commands
 
-## You're done
-
-Enjoy your Ollama server :)
-
-If the fly URL keeps loading, try destroying apps and re-creating them.
+| Command | Purpose |
+|---------|---------|
+| `fly logs --app ollama-prod` | View app logs |
+| `fly status --app ollama-prod` | Check app status |
+| `fly scale show --app ollama-prod` | Check GPU allocation |
+| `fly dashboard --app ollama-prod` | Open web dashboard |
+| `fly ips list --app ollama-prod` | View network config |

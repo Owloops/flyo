@@ -1,41 +1,19 @@
-# Redlib on Fly.io
+# Redlib
 
-Guide for setting up Redlib instance on Fly.io.
+Privacy-focused Reddit frontend with no tracking, ads, or JavaScript requirements.
 
-## Setup
-
-You'll need a [Fly.io](https://fly.io/) account, and the [Flyctl CLI](https://fly.io/docs/flyctl/installing/).
-
-### Apps
-
-Clone this repo. Find and replace the application name `redlib-pg` with anything you like.
-
-_redlib_:
+## Quick Deploy
 
 ```bash
-fly apps create redlib-pg
+make deploy app=redlib environment=prod region=fra
 ```
 
-## Deploy
+## Useful Commands
 
-```bash
-fly deploy
-```
-
-### Operating your instance
-
-Useful resources for operating and debugging a running instance include `fly logs`, `fly scale show`, `fly ssh console`, the Metrics section of `fly dashboard`.
-
-### Upgrading Redlib
-
-To upgrade to a new version of Redlib, re-deploy the app.
-
-```bash
-fly deploy
-```
-
-## You're done
-
-Enjoy your Redlib server :)
-
-If the fly URL keeps loading, try destroying apps and re-creating them.
+| Command | Purpose |
+|---------|---------|
+| `fly logs --app redlib-prod` | View app logs |
+| `fly status --app redlib-prod` | Check app status |
+| `fly ssh console --app redlib-prod` | Access terminal |
+| `fly dashboard --app redlib-prod` | Open web dashboard |
+| `fly scale show --app redlib-prod` | Check scaling |
