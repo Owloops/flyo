@@ -1,2 +1,0 @@
-#!/bin/sh
-FLY_APP=searxng-pg-redis exec "fly" -c fly.redis.toml "$@"

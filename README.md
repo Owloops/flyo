@@ -36,7 +36,7 @@ Run `make doctor` to verify your setup.
 | memos | Note-taking app | - |
 | ollama | Local LLM server | - |
 | redlib | Reddit frontend | - |
-| searxng | Meta search engine | Redis |
+| searxng | Meta search engine | Valkey |
 
 ## Quick Start
 

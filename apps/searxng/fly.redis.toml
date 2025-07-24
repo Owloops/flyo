@@ -1,9 +1,0 @@
-app = "searxng-redis"
-primary_region = "fra"
-
-[build]
-  dockerfile = "Dockerfile.redis"
-
-[mounts]
-  source = "searxng_redis_data"
-  destination = "/data"

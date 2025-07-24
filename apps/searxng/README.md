@@ -23,14 +23,14 @@ fly secrets set SEARXNG_SECRET=$SEARXNG_SECRET --app searxng-{environment}
 # Main app data
 fly volumes create searxng_data --region {region} --app searxng-{environment}
 
-# Redis data (recommended)  
-fly volumes create searxng_redis_data --region {region} --app searxng-{environment}-redis
+# Valkey data (recommended)  
+fly volumes create searxng_valkey_data --region {region} --app searxng-{environment}-valkey
 ```
 
 ## Architecture
 
 - **Main app**: SearXNG search interface
-- **Redis**: Caching and rate limiting
+- **Valkey**: Caching and rate limiting
 - **Volume**: Persistent configuration storage
 
 ## Useful Commands
@@ -39,6 +39,6 @@ fly volumes create searxng_redis_data --region {region} --app searxng-{environme
 |---------|---------|
 | `fly logs --app searxng-prod` | View main app logs |
 | `fly status --app searxng-prod` | Check app status |
-| `fly logs --app searxng-prod-redis` | View Redis logs |
+| `fly logs --app searxng-prod-valkey` | View Valkey logs |
 | `fly ssh console --app searxng-prod` | Access main app |
 | `fly dashboard --app searxng-prod` | Open web dashboard |

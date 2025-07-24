@@ -9,7 +9,7 @@ $(if $(filter librechat,$(app)),\
 	--env MONGO_URI="mongodb://$(app)$(if $(environment),-$(environment),)-mongo.internal:27017/LibreChat",\
 	$(if $(filter searxng,$(app)),\
 		--env SEARXNG_BASE_URL="https://$(app)$(if $(environment),-$(environment),).fly.dev/" \
-		--env SEARXNG_REDIS_URL="redis://$(app)$(if $(environment),-$(environment),)-redis.internal:6379/0",\
+		--env SEARXNG_VALKEY_URL="valkey://$(app)$(if $(environment),-$(environment),)-valkey.internal:6379/0",\
 	)\
 )
 endef
@@ -123,10 +123,10 @@ _deploy_services:
 		--app $(app)$(if $(environment),-$(environment),)-mongo \
 		--primary-region $(region); \
 	fi
-	@if [ -f "apps/$(app)/fly.redis.toml" ]; then \
-		echo "Deploying Redis service..." && \
-		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-redis APP_DIR=apps/$(app) && \
-		cd apps/$(app) && fly deploy -c fly.redis.toml \
-		--app $(app)$(if $(environment),-$(environment),)-redis \
+	@if [ -f "apps/$(app)/fly.valkey.toml" ]; then \
+		echo "Deploying Valkey service..." && \
+		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-valkey APP_DIR=apps/$(app) && \
+		cd apps/$(app) && fly deploy -c fly.valkey.toml \
+		--app $(app)$(if $(environment),-$(environment),)-valkey \
 		--primary-region $(region); \
 	fi

@@ -1,0 +1,9 @@
+app = "searxng-valkey"
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile.valkey"
+
+[mounts]
+  source = "searxng_valkey_data"
+  destination = "/data"

@@ -9,9 +9,8 @@ primary_region = 'fra'
 [build]
 
 [env]
-  ALLOW_REGISTRATION = 'false'
+  ALLOW_REGISTRATION = 'true'
   HOST = '0.0.0.0'
-  MONGO_URI = 'mongodb://librechat-pg-mongod.internal:27017/LibreChat'
 
 [[mounts]]
   source = 'librechat_data'

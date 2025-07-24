@@ -26,5 +26,3 @@ primary_region = "fra"
 [env]
   PORT = "8080"
   INSTANCE_NAME = "SearXNG"
-  SEARXNG_BASE_URL = "https://searxng-pg.fly.dev/"
-  SEARXNG_REDIS_URL = "redis://searxng-pg-redis.internal:6379/0"

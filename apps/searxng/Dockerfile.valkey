@@ -1,0 +1,5 @@
+FROM valkey/valkey:alpine
+
+COPY start-valkey-server.sh /usr/bin/start-valkey-server.sh
+
+CMD ["/usr/bin/start-valkey-server.sh"]
