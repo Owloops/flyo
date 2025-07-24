@@ -14,7 +14,14 @@ error() { printf "${RED}x${RESET} %s\n" "$1" >&2; }
 	exit 2
 }
 
-readonly WORKER_INDEX="$1" TOTAL_WORKERS="$2" APPS_INPUT="$3" ENVIRONMENT="${4:-}" REGION="${5:-fra}"
+readonly WORKER_INDEX="$1" TOTAL_WORKERS="$2" APPS_INPUT="$3"
+ENVIRONMENT="${4:-}"
+readonly REGION="${5:-fra}"
+
+if [[ -z "$ENVIRONMENT" ]] && [[ -n "${ENVIRONMENT_SECRET:-}" ]]; then
+	ENVIRONMENT="$ENVIRONMENT_SECRET"
+fi
+readonly ENVIRONMENT
 
 [[ "$WORKER_INDEX" =~ ^[1-9][0-9]*$ ]] && [[ "$TOTAL_WORKERS" =~ ^[1-9][0-9]*$ ]] && [[ $WORKER_INDEX -le $TOTAL_WORKERS ]] || {
 	error "Invalid worker parameters"

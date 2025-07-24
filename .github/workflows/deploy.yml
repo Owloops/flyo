@@ -8,7 +8,7 @@ on:
         required: true
         default: 'all'
       environment:
-        description: 'Environment suffix (e.g. "staging", "prod", "test")'
+        description: 'Environment suffix (leave empty to use ENVIRONMENT secret)'
         required: false
         default: ''
       region:
@@ -49,3 +49,4 @@ jobs:
         run: .github/scripts/deploy-worker.sh ${{ matrix.worker }} ${{ env.WORKER_COUNT }} '${{ inputs.apps }}' '${{ inputs.environment }}' '${{ inputs.region }}'
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          ENVIRONMENT_SECRET: ${{ secrets.ENVIRONMENT }}

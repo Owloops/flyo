@@ -11,7 +11,8 @@ Fork this repository or use it as a template:
 
 1. Create your repository (fork or template)
 2. Add `FLY_API_TOKEN` to repository secrets
-3. Deploy via GitHub Actions or command line
+3. (Optional) Add `ENVIRONMENT` secret for private environment suffix
+4. Deploy via GitHub Actions or command line
 
 The system parallelizes deployments across multiple workers automatically.
 
