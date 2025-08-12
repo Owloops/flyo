@@ -50,3 +50,6 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           ENVIRONMENT_SECRET: ${{ secrets.ENVIRONMENT }}
+          REDDIT_APP_NAME: ${{ secrets.REDDIT_APP_NAME }}
+          REDDIT_APP_CLIENT_ID: ${{ secrets.REDDIT_APP_CLIENT_ID }}
+          REDDIT_APP_SECRET: ${{ secrets.REDDIT_APP_SECRET }}
