@@ -50,7 +50,9 @@ pages:
           - type: group
             define: &shared-properties
                   type: reddit
-                  request-url-template: https://redlib${ENVIRONMENT_SUFFIX}.fly.dev/{REQUEST-URL}
+                  app-name: ${REDDIT_APP_NAME}
+                  client-id: ${REDDIT_APP_CLIENT_ID}
+                  client-secret: ${REDDIT_APP_SECRET}
                   comments-url-template: https://redlib${ENVIRONMENT_SUFFIX}.fly.dev/{POST-PATH}
             widgets:
               - type: hacker-news

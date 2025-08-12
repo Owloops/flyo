@@ -64,7 +64,11 @@ deploy: create ## Deploy app with services
 	@echo "Deploying $(app)$(if $(environment),-$(environment),) to $(region)..."
 	@if [ "$(app)" = "glance" ]; then \
 		cd apps/$(app) && \
-		ENVIRONMENT_SUFFIX=$(if $(environment),-$(environment),) envsubst < glance.yml.template > glance.yml; \
+		ENVIRONMENT_SUFFIX=$(if $(environment),-$(environment),) \
+		REDDIT_APP_NAME="$$REDDIT_APP_NAME" \
+		REDDIT_APP_CLIENT_ID="$$REDDIT_APP_CLIENT_ID" \
+		REDDIT_APP_SECRET="$$REDDIT_APP_SECRET" \
+		envsubst < glance.yml.template > glance.yml; \
 	fi
 	@if [ "$(app)" = "librechat" ]; then \
 		cd apps/$(app) && \
