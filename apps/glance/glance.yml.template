@@ -50,6 +50,7 @@ pages:
           - type: group
             define: &shared-properties
                   type: reddit
+                  request-url-template: https://redlib${ENVIRONMENT_SUFFIX}.fly.dev/{REQUEST-URL}
                   comments-url-template: https://redlib${ENVIRONMENT_SUFFIX}.fly.dev/{POST-PATH}
             widgets:
               - type: hacker-news
