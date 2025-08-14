@@ -57,90 +57,23 @@ pages:
             widgets:
               - type: hacker-news
               - type: lobsters
-              # Tech & Programming
               - subreddit: selfhosted
                 <<: *shared-properties
               - subreddit: linux
                 <<: *shared-properties
-              - subreddit: Fedora
-                <<: *shared-properties
-              - subreddit: AsahiLinux
-                <<: *shared-properties
-              - subreddit: networking
-                <<: *shared-properties
-              - subreddit: devops
-                <<: *shared-properties
-              - subreddit: QualityAssurance
-                <<: *shared-properties
               - subreddit: commandline
-                <<: *shared-properties
-              - subreddit: programming
-                <<: *shared-properties
-              - subreddit: javascript
-                <<: *shared-properties
-              - subreddit: golang
-                <<: *shared-properties
-              - subreddit: lua
                 <<: *shared-properties
               - subreddit: aws
                 <<: *shared-properties
-              - subreddit: aws_cdk
-                <<: *shared-properties
-              - subreddit: grafana
-                <<: *shared-properties
-              - subreddit: opensource
-                <<: *shared-properties
-              - subreddit: suckless
-                <<: *shared-properties
               - subreddit: unixporn
                 <<: *shared-properties
-              - subreddit: PrivacyGuides
-                <<: *shared-properties
-              - subreddit: digitalminimalism
-                <<: *shared-properties
-              # AI & Dev Tools
               - subreddit: ClaudeAI
-                <<: *shared-properties
-              - subreddit: ClaudeCode
-                <<: *shared-properties
-              # Gaming
-              - subreddit: gamedev
-                <<: *shared-properties
-              - subreddit: roguelikes
-                <<: *shared-properties
-              - subreddit: roguelikedev
                 <<: *shared-properties
               - subreddit: cavesofqud
                 <<: *shared-properties
-              - subreddit: dcss
-                <<: *shared-properties
-              - subreddit: DoorsofTrithius
-                <<: *shared-properties
-              - subreddit: macgaming
-                <<: *shared-properties
-              - subreddit: ScavengersReign
-                <<: *shared-properties
-              # Finance
-              - subreddit: Bogleheads
-                <<: *shared-properties
               - subreddit: Bitcoin
                 <<: *shared-properties
-              # Sports
-              - subreddit: armwrestling
-                <<: *shared-properties
-              - subreddit: MMA
-                <<: *shared-properties
-              # Places & Travel
-              - subreddit: Sakartvelo
-                <<: *shared-properties
-              - subreddit: italy
-                <<: *shared-properties
-              - subreddit: Slovenia
-                <<: *shared-properties
               - subreddit: travel
-                <<: *shared-properties
-              # Lifestyle & Interests
-              - subreddit: Watches
                 <<: *shared-properties
               - subreddit: space
                 <<: *shared-properties
