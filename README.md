@@ -30,6 +30,7 @@ Run `make doctor` to verify your setup.
 | App | Description | Dependencies |
 |-----|-------------|-------------|
 | glance | Personal dashboard | - |
+| it-tools | Developer tools collection | - |
 | kuma | Uptime monitoring | - |
 | librechat | AI chat interface | MongoDB |
 | linkding | Bookmark manager | - |
